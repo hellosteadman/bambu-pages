@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name = 'bambu-pages',
@@ -7,14 +7,13 @@ setup(
     description = 'Tools for Django webapps',
     author = 'Steadman',
     author_email = 'mark@steadman.io',
-    url = 'http://pypi.python.org/pypi/bambu-pages',
+    url = 'https://github.com/iamsteadman/bambu-pages',
     install_requires = [
         'Django>=1.4',
         'bambu-attachments',
         'bambu-markup',
         'bambu-formatrules'
     ],
-    namespace_packages = ['bambu'],
     packages = [
         'bambu_pages',
         'bambu_pages.migrations'
