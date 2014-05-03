@@ -1,0 +1,4 @@
+Django>=1.4
+bambu-attachments>=2.0
+bambu-markup>=2.0
+bambu-formatrules>=2.0
