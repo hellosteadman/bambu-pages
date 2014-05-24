@@ -5,6 +5,10 @@ from bambu_attachments.models import Attachment
 from bambu_pages.managers import PageManager
 import logging
 
+class CustomTitleString(str):
+    def title(self):
+        return str(self[6:]).title()
+
 class Page(models.Model):
     name = models.CharField(max_length = 100, db_index = True)
     slug = models.SlugField(max_length = 50, db_index = True)
@@ -78,6 +82,7 @@ class Page(models.Model):
     class Meta:
         ordering = ('order_hierarchical',)
         db_table = 'pages_page'
+        app_label = CustomTitleString('bambu_pages')
     
     class QuerySet(models.query.QuerySet):
         def root(self):

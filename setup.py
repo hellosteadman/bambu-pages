@@ -4,7 +4,7 @@ from os import path
 
 setup(
     name = 'bambu-pages',
-    version = '2.0',
+    version = '2.0.1',
     description = 'Tools for Django webapps',
     author = 'Steadman',
     author_email = 'mark@steadman.io',
@@ -12,9 +12,9 @@ setup(
     long_description = open(path.join(path.dirname(__file__), 'README')).read(),
     install_requires = [
         'Django>=1.4',
-        'bambu-attachments',
-        'bambu-markup',
-        'bambu-formatrules'
+        'bambu-attachments>=2.0',
+        'bambu-markup>=2.0',
+        'bambu-formatrules>=2.0'
     ],
     packages = [
         'bambu_pages',
@@ -23,7 +23,7 @@ setup(
     package_data = {
         'bambu_pages': [
             'templates/pages/*.html',
-            'templates/search/indexes/pages/*.txt'
+            'templates/search/indexes/bambu_pages/*.txt'
         ]
     },
     classifiers = [
