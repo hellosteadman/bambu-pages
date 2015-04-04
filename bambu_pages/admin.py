@@ -4,11 +4,6 @@ from django import forms
 from bambu_pages.models import Page
 from bambu_attachments.admin import AttachmentInline
 
-try:
-    import json as simplejson
-except ImportError:
-    from django.utils import simplejson
-
 class PageAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         def add_choices(queryset, indent = 0):
@@ -24,7 +19,7 @@ class PageAdminForm(forms.ModelForm):
         queryset = self.fields['parent'].queryset
         add_choices(queryset.root())
         self.fields['parent'].widget.choices = choices
-        
+
         if 'markitup' in settings.INSTALLED_APPS:
             from markitup.widgets import MarkItUpWidget
             self.fields['body'].widget = MarkItUpWidget()
@@ -70,6 +65,16 @@ class PageAdminForm(forms.ModelForm):
 
     class Meta:
         model = Page
+        fields = (
+            'name',
+            'slug',
+            'parent',
+            'order',
+            'title',
+            'subtitle',
+            'body',
+            'css'
+        )
 
     class Media:
         js = 'grappelli' in settings.INSTALLED_APPS and (
@@ -97,12 +102,6 @@ class PageAdmin(admin.ModelAdmin):
             u'Page content',
             {
                 'fields': ('title', 'subtitle', 'body', 'css')
-            }
-        ),
-        (
-            u'Navigation',
-            {
-                'fields': ('menu_groups', 'order',)
             }
         )
     )
