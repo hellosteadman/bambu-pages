@@ -13,8 +13,7 @@ setup(
     install_requires = [
         'Django>=1.8',
         'bambu-attachments>=3.0',
-        'bambu-markup>=3.0',
-        'bambu-formatrules>=3.0'
+        'bambu-markup>=3.0'
     ],
     packages = [
         'bambu_pages',
