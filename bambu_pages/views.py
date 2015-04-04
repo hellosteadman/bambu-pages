@@ -3,12 +3,6 @@ from django.shortcuts import get_object_or_404
 from bambu_pages.models import Page
 from bambu_pages.helpers import page_tree
 
-try:
-    from bambu_enqueue import enqueue_css_block
-except ImportError:
-    def enqueue_css_block(*args, **kwargs):
-        pass
-
 def page(request, slug):
     page = get_object_or_404(Page, slug_hierarchical = slug)
     templates = []
@@ -18,9 +12,8 @@ def page(request, slug):
     breadcrumb = [('', page.name)]
     backtick = '../'
     parent = page.parent
-    styles = [enqueue_css_block(request, page.css)]
     classes = []
-    
+
     while parent:
         templates.append('pages/%s/subpage.html' % parent.slug_hierarchical)
         templates.append(
@@ -28,42 +21,38 @@ def page(request, slug):
                 'subpage/' * len(parent.slug_hierarchical.split('/'))
             )
         )
-        
+
         title_parts.append(parent.title or parent.name)
         breadcrumb.append((backtick, parent.name))
         classes.append('subpage-%s' % parent.slug_hierarchical.replace('-', '_').replace('/', '-'))
-        
-        styles.append(
-            enqueue_css_block(request, parent.css)
-        )
-        
+
         parent = parent.parent
         backtick += '../'
-    
+
     breadcrumb.reverse()
     templates.insert(0, 'pages/%s.html' % page.slug_hierarchical)
-    
+
     if page.parent:
         templates.append('pages/subpage.html')
-    
+
     templates.append('pages/page.html')
     classes.append('page-%s' % page.slug_hierarchical.replace('-', '_').replace('/', '-'))
-    
+
     styles.reverse()
     classes.reverse()
-    
+
     siblings = Page.objects.filter(parent = page.parent)
-    
+
     try:
         next = siblings.filter(order__gt = page.order)[0]
     except IndexError:
         next = None
-    
+
     try:
         previous = siblings.filter(order__lt = page.order).order_by('-order')[0]
     except IndexError:
         previous = None
-    
+
     return TemplateResponse(
         request,
         templates,
@@ -74,7 +63,6 @@ def page(request, slug):
             'title_parts': title_parts,
             'breadcrumb_trail': breadcrumb,
             'menu_selection': page.get_root_page().slug_hierarchical.replace('/', '-'),
-            'enqueued_styles': styles,
             'next_page': next,
             'previous_page': previous,
             'body_classes': classes

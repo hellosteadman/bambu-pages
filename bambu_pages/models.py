@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.contenttypes import generic
 from django.template import Template, Context
 from bambu_attachments.models import Attachment
-from bambu_pages.managers import PageManager
 import logging
+
+class PageQuerySet(models.QuerySet):
+    def root(self):
+        return self.filter(parent__isnull = True)
 
 class Page(models.Model):
     name = models.CharField(max_length = 100, db_index = True)
@@ -18,7 +21,7 @@ class Page(models.Model):
     body = models.TextField(null = True, blank = True)
     css = models.TextField(null = True, blank = True)
     attachments = generic.GenericRelation(Attachment)
-    objects = PageManager()
+    objects = PageQuerySet.as_manager()
 
     def __unicode__(self):
         return self.name
@@ -77,7 +80,3 @@ class Page(models.Model):
     class Meta:
         ordering = ('order_hierarchical',)
         db_table = 'pages_page'
-
-    class QuerySet(models.query.QuerySet):
-        def root(self):
-            return self.filter(parent__isnull = True)
