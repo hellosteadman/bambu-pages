@@ -1,7 +1,8 @@
-from django.db import models
-from django.contrib.contenttypes import generic
-from django.template import Template, Context
 from bambu_attachments.models import Attachment
+from bambu_pages.querysets import *
+from django.contrib.contenttypes import generic
+from django.db import models
+from django.template import Template, Context
 import logging
 
 class PageQuerySet(models.QuerySet):

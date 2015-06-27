@@ -4,7 +4,7 @@ from os import path
 
 setup(
     name = 'bambu-pages',
-    version = '3.0',
+    version = '3.1',
     description = 'Tools for Django webapps',
     author = 'Steadman',
     author_email = 'mark@steadman.io',
@@ -13,8 +13,7 @@ setup(
     install_requires = [
         'Django>=1.8',
         'bambu-attachments>=3.0',
-        'bambu-markup>=3.0',
-        'bambu-formatrules>=3.0'
+        'bambu-markup>=3.0'
     ],
     packages = [
         'bambu_pages',
