@@ -7,7 +7,7 @@ def page(request, slug):
     page = get_object_or_404(Page, slug_hierarchical = slug)
     templates = []
     parent = 'pages/'
-    
+
     title_parts = [page.title or page.name]
     breadcrumb = [('', page.name)]
     backtick = '../'
@@ -38,9 +38,7 @@ def page(request, slug):
     templates.append('pages/page.html')
     classes.append('page-%s' % page.slug_hierarchical.replace('-', '_').replace('/', '-'))
 
-    styles.reverse()
     classes.reverse()
-
     siblings = Page.objects.filter(parent = page.parent)
 
     try:
