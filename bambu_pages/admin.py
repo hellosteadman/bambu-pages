@@ -30,38 +30,6 @@ class PageAdminForm(forms.ModelForm):
 
         self.fields['css'].label = u'Custom CSS'
 
-    def save(self, commit = True):
-        obj = super(PageAdminForm, self).save(commit = False)
-
-        if obj.menu_groups:
-            menus = []
-
-            for menu in obj.menu_groups.split(','):
-                menu = menu.strip()
-
-                while menu.startswith('"'):
-                    menu = menu[1:]
-
-                while menu.startswith("'"):
-                    menu = menu[1:]
-
-                while menu.endswith('"'):
-                    menu = menu[:-1]
-
-                while menu.endswith("'"):
-                    menu = menu[:-1]
-
-                menus.append("'%s'" % menu)
-
-            obj.menu_groups = ','.join(menus)
-        else:
-            obj.menu_groups = None
-
-        if commit:
-            obj.save()
-
-        return obj
-
     class Meta:
         model = Page
         fields = (
