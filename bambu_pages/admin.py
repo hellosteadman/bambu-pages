@@ -29,7 +29,6 @@ class PageAdminForm(forms.ModelForm):
             self.fields['css'].widget.attrs['class'] = ' '.join(set(sorted(classes)))
 
         self.fields['css'].label = u'Custom CSS'
-        self.fields['menu_groups'].help_text = u'A comma-separated name of menu groups'
 
     def save(self, commit = True):
         obj = super(PageAdminForm, self).save(commit = False)
