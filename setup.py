@@ -4,7 +4,7 @@ from os import path
 
 setup(
     name = 'bambu-pages',
-    version = '3.2.1',
+    version = '3.2.2',
     description = 'Tools for Django webapps',
     author = 'Steadman',
     author_email = 'mark@steadman.io',

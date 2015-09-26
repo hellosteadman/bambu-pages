@@ -1,1 +1,3 @@
 *.pyc
+/bambu_pages.egg-info
+/dist
