@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from bambu_pages.views import page
 from django.conf import settings
 
@@ -8,6 +8,6 @@ else:
     def body_classes(view, *classes):
         return view
 
-urlpatterns = patterns('',
-    url(r'^(?P<slug>[\/\w-]+)/$', body_classes(page, 'page'), name = 'page')
+urlpatterns = (
+    url(r'^(?P<slug>[\/\w-]+)/$', body_classes(page, 'page'), name = 'page'),
 )
